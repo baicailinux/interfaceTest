@@ -7,6 +7,7 @@ import readConfig
 
 class Log:
     def __init__(self):
+        '''proDir是根目录,resultPath是下级result目录'''
         global logPath, resultPath, proDir
         proDir = readConfig.proDir
         resultPath = os.path.join(proDir, "result")
