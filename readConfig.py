@@ -3,7 +3,6 @@ import codecs
 import configparser
 
 proDir = os.path.split(os.path.realpath(__file__))[0]
-
 configPath = os.path.join(proDir, "config.ini")
 
 
@@ -29,6 +28,19 @@ class ReadConfig:
 
     def get_http(self, name):
         value = self.cf.get("HTTP", name)
+        return value
+
+    def get_headers(self, name):
+        value = self.cf.get("HEADERS", name)
+        return value
+
+    def set_headers(self, name, value):
+        self.cf.set("HEADERS", name, value)
+        with open(configPath, 'w+') as f:
+            self.cf.write(f)
+
+    def get_url(self, name):
+        value = self.cf.get("URL", name)
         return value
 
     def get_db(self, name):
