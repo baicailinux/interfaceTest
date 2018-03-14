@@ -29,7 +29,7 @@ class ConfigHttp:
         :return:
         """
         self.url = scheme + '://' + host + url
-
+        '''etc:http://www.baidu.com/s?wd=%E6%89%94%E8%8B%B9%E6%9E%9C%E7%A0%B8%E4%B8%AD%E5%A5%B3%E5%A9%B4&tn=96327163_hao_pg'''
     def set_headers(self, header):
         """
         set headers
@@ -61,7 +61,7 @@ class ConfigHttp:
         :return:
         """
         if filename != '':
-            file_path = 'F:/AppTest/Test/interfaceTest/testFile/img/' + filename
+            file_path = 'F:/interfaceTest/testFile/img/' + filename
             self.files = {'file': open(file_path, 'rb')}
 
         if filename == '' or filename is None:
