@@ -17,7 +17,7 @@ class AllTest:
         on_off = localReadConfig.get_email("on_off")
         self.caseListFile = os.path.join(readConfig.proDir, "caselist.txt")
         self.caseFile = os.path.join(readConfig.proDir, "testCase")
-        # self.caseFile = None
+
         self.caseList = []
         self.email = MyEmail.get_email()
 
@@ -44,7 +44,7 @@ class AllTest:
 
         for case in self.caseList:
             case_name = case.split("/")[-1]
-            print(case_name+".py")
+            print(case_name + ".py")
             discover = unittest.defaultTestLoader.discover(self.caseFile, pattern=case_name + '.py', top_level_dir=None)
             suite_module.append(discover)
 
@@ -67,16 +67,16 @@ class AllTest:
             suit = self.set_case_suite()
             if suit is not None:
                 logger.info("********TEST START********")
-                fp = open(resultPath, 'wb')
-                runner = HTMLTestRunner.HTMLTestRunner(stream=fp, title='Test Report', description='Test Description')
-                runner.run(suit)
+                with open(resultPath, 'wb') as fp:
+                    runner = HTMLTestRunner.HTMLTestRunner(stream=fp, title='Test Report',
+                                                           description='Test Description')
+                    runner.run(suit)
             else:
                 logger.info("Have no case to test.")
         except Exception as ex:
             logger.error(str(ex))
         finally:
             logger.info("*********TEST END*********")
-            fp.close()
             # send test report by email
             if on_off == 'on':
                 self.email.send_email()
