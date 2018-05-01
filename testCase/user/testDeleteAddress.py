@@ -2,10 +2,10 @@ import unittest
 import paramunittest
 import readConfig as readConfig
 from common import Log as Log
-from common import common
+from common import common_base
 from common import configHttp as ConfigHttp
 
-deleteAddress_xls = common.get_xls("userCase.xlsx", "deleteAddress")
+deleteAddress_xls = common_base.get_xls("userCase.xlsx", "deleteAddress")
 localReadConfig = readConfig.ReadConfig()
 configHttp = ConfigHttp.ConfigHttp()
 
@@ -52,7 +52,7 @@ class DeleteAddress(unittest.TestCase):
         :return:
         """
         # set url
-        self.url = common.get_url_from_xml('deleteAddress')
+        self.url = common_base.get_url_from_xml('deleteAddress')
         configHttp.set_url(self.url)
 
         # get visitor token
@@ -85,7 +85,7 @@ class DeleteAddress(unittest.TestCase):
         :return:
         """
         self.info = self.return_json.json()
-        common.show_return_msg(self.return_json)
+        common_base.show_return_msg(self.return_json)
 
         if self.result == '0':
             self.assertEqual(self.info['code'], self.code)

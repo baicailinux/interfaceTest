@@ -2,13 +2,13 @@ import unittest
 import paramunittest
 import readConfig as ReadConfig
 from common.Log import MyLog
-from common import common
+from common import common_base
 from common import configHttp
 from common import businessCommon
 
 localReadConfig = ReadConfig.ReadConfig()
 localConfigHttp = configHttp.ConfigHttp()
-localLogout_xls = common.get_xls("userCase.xlsx", "logout")
+localLogout_xls = common_base.get_xls("userCase.xlsx", "logout")
 
 
 @paramunittest.parametrized(*localLogout_xls)
@@ -57,7 +57,7 @@ class Logout(unittest.TestCase):
         :return:
         """
         # set url
-        self.url = common.get_url_from_xml('logout')
+        self.url = common_base.get_url_from_xml('logout')
         localConfigHttp.set_url(self.url)
 
         # set header
@@ -89,7 +89,7 @@ class Logout(unittest.TestCase):
         :return:
         """
         self.info = self.response.json()
-        common.show_return_msg(self.response)
+        common_base.show_return_msg(self.response)
 
         if self.result == '0':
             self.assertEqual(self.info['code'], self.code)

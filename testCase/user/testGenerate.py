@@ -2,10 +2,10 @@ import unittest
 import paramunittest
 import readConfig as readConfig
 from common.Log import MyLog
-from common import common
+from common import common_base
 from common import configHttp
 
-localGenerate_xls = common.get_xls("userCase.xlsx", "generate")
+localGenerate_xls = common_base.get_xls("userCase.xlsx", "generate")
 localConfigHttp = configHttp.ConfigHttp()
 localReadConfig = readConfig.ReadConfig()
 
@@ -52,7 +52,7 @@ class Generate(unittest.TestCase):
         :return:
         """
         # set url
-        self.url = common.get_url_from_xml('generate')
+        self.url = common_base.get_url_from_xml('generate')
         localConfigHttp.set_url(self.url)
 
         # test interface
@@ -74,7 +74,7 @@ class Generate(unittest.TestCase):
         :return:
         """
         self.info = self.response.json()
-        common.show_return_msg(self.response)
+        common_base.show_return_msg(self.response)
 
         if self.result == '0':
             self.assertEqual(self.info['code'], self.code)

@@ -2,12 +2,12 @@ import unittest
 import paramunittest
 import readConfig as readConfig
 from common.Log import MyLog
-from common import common
+from common import common_base
 from common import configHttp
 
 localReadConfig = readConfig.ReadConfig()
 localConfigHttp = configHttp.ConfigHttp()
-localLoginFB_xls = common.get_xls("userCase.xlsx", "loginFB")
+localLoginFB_xls = common_base.get_xls("userCase.xlsx", "loginFB")
 
 
 @paramunittest.parametrized(*localLoginFB_xls)
@@ -60,7 +60,7 @@ class LoginFB(unittest.TestCase):
         :return:
         """
         # set url
-        self.url = common.get_url_from_xml('loginFb')
+        self.url = common_base.get_url_from_xml('loginFb')
         localConfigHttp.set_url(self.url)
 
         # set header
@@ -105,7 +105,7 @@ class LoginFB(unittest.TestCase):
         :return:
         """
         self.info = self.response.json()
-        common.show_return_msg(self.response)
+        common_base.show_return_msg(self.response)
         self.assertEqual(self.info['code'], self.code)
         if self.info['code'] == self.code:
             self.assertEqual(self.info['msg'], self.msg)

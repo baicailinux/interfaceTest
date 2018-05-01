@@ -12,9 +12,12 @@ class ReadConfig:
         data = fd.read()
 
         #  remove BOM
+        '''
+        某些软件在保存一个以UTF-8编码的文件时，默认会在文件开始的地方插入三个不可见的字符（0xEF 0xBB 0xBF，即BOM）。
+        在有些软件可以控制是否插入BOM。如果在有BOM的情况下，在读取时需要自己去掉这些字符，python中的codecs module定义了这个常量'''
         if data[:3] == codecs.BOM_UTF8:
             data = data[3:]
-            file = codecs.open(configPath, "w")
+            file = codecs.open(configPath, "w")  # 重写覆盖原文件
             file.write(data)
             file.close()
         fd.close()

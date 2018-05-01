@@ -3,12 +3,12 @@ import paramunittest
 import readConfig as readConfig
 from common import configHttp
 from common import businessCommon
-from common import common
+from common import common_base
 from common.Log import MyLog
 
 localReadConfig = readConfig.ReadConfig()
 localConfigHttp = configHttp.ConfigHttp()
-localUpdatePassword_xls = common.get_xls("userCase.xlsx", "updatePassword")
+localUpdatePassword_xls = common_base.get_xls("userCase.xlsx", "updatePassword")
 
 
 @paramunittest.parametrized(*localUpdatePassword_xls)
@@ -65,7 +65,7 @@ class UpdatePassword(unittest.TestCase):
         """
 
         # set url
-        self.url = common.get_url_from_xml('updatePassword')
+        self.url = common_base.get_url_from_xml('updatePassword')
         localConfigHttp.set_url(self.url)
 
         # set header
@@ -105,7 +105,7 @@ class UpdatePassword(unittest.TestCase):
         :return:
         """
         self.info = self.response.json()
-        common.show_return_msg(self.response)
+        common_base.show_return_msg(self.response)
 
         if self.result == '0':
             self.assertEqual(self.info['code'], self.code)

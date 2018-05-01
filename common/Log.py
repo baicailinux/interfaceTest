@@ -10,14 +10,14 @@ localReadConfig = readConfig.ReadConfig()
 class Log:
     def __init__(self):
         global logPath, resultPath, proDir
-        proDir = readConfig.proDir
+        proDir = readConfig.proDir  # root目录
         resultPath = os.path.join(proDir, "result")
         if not os.path.exists(resultPath):
             os.mkdir(resultPath)
         logPath = os.path.join(resultPath, str(datetime.now().strftime("%Y%m%d%H%M%S")))
         if not os.path.exists(logPath):
             os.mkdir(logPath)
-        self.logger = logging.getLogger()
+        self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
 
         # defined handler

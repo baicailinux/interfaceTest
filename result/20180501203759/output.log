@@ -1,0 +1,3 @@
+2018-05-01 20:37:59,114 - common.Log - INFO - ********TEST START********
+2018-05-01 20:37:59,116 - common.Log - INFO - *********TEST END*********
+2018-05-01 20:37:59,116 - common.Log - INFO - Doesn't send report email to developer.

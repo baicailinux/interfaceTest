@@ -2,11 +2,11 @@ import unittest
 import paramunittest
 import readConfig as readConfig
 from common import Log as Log
-from common import common
+from common import common_base
 from common import configHttp as ConfigHttp
 from common import businessCommon
 
-addressList_xls = common.get_xls("userCase.xlsx", "getAddressList")
+addressList_xls = common_base.get_xls("userCase.xlsx", "getAddressList")
 localReadConfig = readConfig.ReadConfig()
 configHttp = ConfigHttp.ConfigHttp()
 info = {}
@@ -55,7 +55,7 @@ class GetAddressList(unittest.TestCase):
         :return:
         """
         # set url
-        self.url = common.get_url_from_xml('getAddressList')
+        self.url = common_base.get_url_from_xml('getAddressList')
         configHttp.set_url(self.url)
         print(self.url)
 
@@ -89,7 +89,7 @@ class GetAddressList(unittest.TestCase):
         :return:
         """
         self.info = self.return_json.json()
-        common.show_return_msg(self.return_json)
+        common_base.show_return_msg(self.return_json)
 
         if self.result == '0':
             self.assertEqual(self.info['code'], self.code)

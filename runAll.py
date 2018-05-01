@@ -13,7 +13,7 @@ class AllTest:
         global log, logger, resultPath, on_off
         log = Log.get_log()
         logger = log.get_logger()
-        resultPath = log.get_report_path()
+        resultPath = log.get_report_path()  # ./result/2018XXXXX
         on_off = localReadConfig.get_email("on_off")
         self.caseListFile = os.path.join(readConfig.proDir, "caselist.txt")
         self.caseFile = os.path.join(readConfig.proDir, "testCase")

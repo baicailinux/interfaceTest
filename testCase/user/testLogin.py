@@ -2,10 +2,10 @@ import unittest
 import paramunittest
 import readConfig as readConfig
 from common import Log as Log
-from common import common
+from common import common_base
 from common import configHttp as ConfigHttp
 
-login_xls = common.get_xls("userCase.xlsx", "login")
+login_xls = common_base.get_xls("userCase.xlsx", "login")
 localReadConfig = readConfig.ReadConfig()
 configHttp = ConfigHttp.ConfigHttp()
 info = {}
@@ -59,7 +59,7 @@ class Login(unittest.TestCase):
         :return:
         """
         # set url
-        self.url = common.get_url_from_xml('login')
+        self.url = common_base.get_url_from_xml('login')
         configHttp.set_url(self.url)
         print("第一步：设置url  "+self.url)
 
@@ -96,7 +96,7 @@ class Login(unittest.TestCase):
         info = self.info
         if info['code'] == 0:
             # get uer token
-            token_u = common.get_value_from_return_json(info, 'member', 'token')
+            token_u = common_base.get_value_from_return_json(info, 'member', 'token')
             # set user token to config file
             localReadConfig.set_headers("TOKEN_U", token_u)
         else:
@@ -111,10 +111,10 @@ class Login(unittest.TestCase):
         """
         self.info = self.return_json.json()
         # show return message
-        common.show_return_msg(self.return_json)
+        common_base.show_return_msg(self.return_json)
 
         if self.result == '0':
-            email = common.get_value_from_return_json(self.info, 'member', 'email')
+            email = common_base.get_value_from_return_json(self.info, 'member', 'email')
             self.assertEqual(self.info['code'], self.code)
             self.assertEqual(self.info['msg'], self.msg)
             self.assertEqual(email, self.email)

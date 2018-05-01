@@ -17,11 +17,11 @@ localReadConfig = readConfig.ReadConfig()
 
 class Email:
     def __init__(self):
-        global host, user, password, port, sender, title
+        global host, user, password, mail_port, sender, title
         host = localReadConfig.get_email("mail_host")
         user = localReadConfig.get_email("mail_user")
         password = localReadConfig.get_email("mail_pass")
-        port = localReadConfig.get_email("mail_port")
+        mail_port = localReadConfig.get_email("mail_port")
         sender = localReadConfig.get_email("sender")
         title = localReadConfig.get_email("subject")
         # content = localReadConfig.get_email("content")
@@ -67,17 +67,17 @@ class Email:
         :return:
         """
         # defined image path
-        image1_path = os.path.join(readConfig.proDir, 'testFile', 'img', '1.png')
-        fp1 = open(image1_path, 'rb')
-        msgImage1 = MIMEImage(fp1.read())
+        # image1_path = os.path.join(readConfig.proDir, 'testFile', 'img', 'email.jpeg')
+        # fp1 = open(image1_path, 'rb')
+        # msgImage1 = MIMEImage(fp1.read())
         # self.msg.attach(msgImage1)
-        fp1.close()
+        # fp1.close()
+        #
+        # # defined image id
+        # msgImage1.add_header('Content-ID', '<image1>')
+        # self.msg.attach(msgImage1)
 
-        # defined image id
-        msgImage1.add_header('Content-ID', '<image1>')
-        self.msg.attach(msgImage1)
-
-        image2_path = os.path.join(readConfig.proDir, 'testFile', 'img', 'logo.jpg')
+        image2_path = os.path.join(readConfig.proDir, 'testFile', 'img', 'baicai.png')
         fp2 = open(image2_path, 'rb')
         msgImage2 = MIMEImage(fp2.read())
         # self.msg.attach(msgImage2)
@@ -104,7 +104,7 @@ class Email:
             f = zipfile.ZipFile(zippath, 'w', zipfile.ZIP_DEFLATED)
             for file in files:
                 # 修改压缩文件的目录结构
-                f.write(file, '/report/'+os.path.basename(file))
+                f.write(file, '/report/' + os.path.basename(file))
             f.close()
 
             reportfile = open(zippath, 'rb').read()
@@ -133,8 +133,7 @@ class Email:
         self.config_content()
         self.config_file()
         try:
-            smtp = smtplib.SMTP()
-            smtp.connect(host)
+            smtp = smtplib.SMTP_SSL(host, mail_port)
             smtp.login(user, password)
             smtp.sendmail(sender, self.receiver, self.msg.as_string())
             smtp.quit()
@@ -152,7 +151,6 @@ class MyEmail:
 
     @staticmethod
     def get_email():
-
         if MyEmail.email is None:
             MyEmail.mutex.acquire()
             MyEmail.email = Email()
@@ -162,3 +160,4 @@ class MyEmail:
 
 if __name__ == "__main__":
     email = MyEmail.get_email()
+    email.send_email()
