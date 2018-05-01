@@ -61,7 +61,7 @@ class ConfigHttp:
         :return:
         """
         if filename != '':
-            file_path = 'F:/interfaceTest/testFile/img/' + filename
+            file_path = '/Users/baicai/PycharmProjects/interfaceTest/testFile/img' + filename
             self.files = {'file': open(file_path, 'rb')}
 
         if filename == '' or filename is None:

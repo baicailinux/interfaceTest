@@ -119,7 +119,12 @@ class Email:
         :return:
         """
         reportpath = self.log.get_report_path()
+        print(reportpath)
         if os.path.isfile(reportpath) and not os.stat(reportpath) == 0:
+            '''
+            os.path.isfile(reportpath) 检查文件是否存在
+            /Users/baicai/PycharmProjects/interfaceTest/result/20180501225706/report.html
+            '''
             return True
         else:
             return False
